@@ -5,14 +5,24 @@
 #define RED_LED   12
 #define GREEN_LED 13
 #define BLUE_LED  14
+#define SERVO_1   21
+#define SERVO_2   22
 
 // DELAY
 #define TICK_RED    1000
 #define TICK_GREEN  5000
 #define TICK_BLUE   10000
 #define TICK_SERVO  15  
+
+// Servos
 Servo servo1, servo2;
 
+// Variables de posición y direccion por servo
+// Son globales e individuales para guardar el valor
+int pos1 = 0, dir1 = 1;
+int pos2 = 0, dir2 = 1;
+
+// Funciones de manejo de los leds
 void red_led()
 {
   digitalWrite(RED_LED,HIGH);
@@ -40,38 +50,40 @@ void blue_led()
   Serial.println("LED AZUL: OFF");
 }
 
+// Control Servos
 void servo1_control()
 {
-  Seria.println("Servo 1: INICIO");
   for(int i = 0; 180 >= i; i++)
   {
     servo1.write(i);
-    delay(TICK_SERVO);
+    Serial.println("Servo #1: 0 -> 180");
+    delay(15);
   }
   for(int i = 180; i >= 0; i--)
   {
     servo1.write(i);
-    delay(TICK_SERVO);
+    Serial.println("Servo #1: 180 -> 0");
+    delay(15);
   }
-  Seria.println("Servo 1: FIN");
 }
 
 void servo2_control()
 {
-  Seria.println("Servo 2: INICIO");
   for(int i = 0; 180 >= i; i++)
   {
     servo2.write(i);
-    delay(TICK_SERVO);
+    Serial.println("Servo #2: 0 -> 180");
+    delay(15);
   }
   for(int i = 180; i >= 0; i--)
   {
     servo2.write(i);
-    delay(TICK_SERVO)
+    Serial.println("Servo #2: 180 -> 0");
+    delay(15);
   }
-  Seria.println("Servo 2: FIN");
 }
 
+// Setup de los pines de los Leds y los servos
 void setup()
 {
   Serial.begin(115200);
@@ -82,11 +94,12 @@ void setup()
   pinMode(BLUE_LED,OUTPUT);
   digitalWrite(BLUE_LED,LOW);
   servo1.setPeriodHertz(50);
-  servo1.attach(21, 500, 2400);
+  servo1.attach(SERVO_1, 500, 2500);
   servo2.setPeriodHertz(50);
-  servo2.attach(22, 500, 2400);
+  servo2.attach(SERVO_2, 500, 2400);
   delay(1000);
 }
+// Loop secuencial de funcion -> delay
 void loop() {
   red_led();
   delay(TICK_RED);
@@ -94,7 +107,7 @@ void loop() {
   delay(TICK_GREEN);
   blue_led();
   delay(TICK_BLUE);
-  servo1_control();
+  servo1_control()
   delay(TICK_SERVO);
   servo2_control();
   delay(TICK_SERVO);
