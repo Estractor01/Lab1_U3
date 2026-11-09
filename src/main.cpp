@@ -53,32 +53,32 @@ void blue_led()
 // Control Servos
 void servo1_control()
 {
+  Serial.println("Servo #1: 0 -> 180");
   for(int i = 0; 180 >= i; i++)
   {
     servo1.write(i);
-    Serial.println("Servo #1: 0 -> 180");
     delay(15);
   }
+  Serial.println("Servo #1: 180 -> 0");
   for(int i = 180; i >= 0; i--)
   {
     servo1.write(i);
-    Serial.println("Servo #1: 180 -> 0");
     delay(15);
   }
 }
 
 void servo2_control()
 {
+  Serial.println("Servo #2: 0 -> 180");
   for(int i = 0; 180 >= i; i++)
   {
     servo2.write(i);
-    Serial.println("Servo #2: 0 -> 180");
     delay(15);
   }
+  Serial.println("Servo #2: 180 -> 0");
   for(int i = 180; i >= 0; i--)
   {
     servo2.write(i);
-    Serial.println("Servo #2: 180 -> 0");
     delay(15);
   }
 }
@@ -96,7 +96,7 @@ void setup()
   servo1.setPeriodHertz(50);
   servo1.attach(SERVO_1, 500, 2500);
   servo2.setPeriodHertz(50);
-  servo2.attach(SERVO_2, 500, 2400);
+  servo2.attach(SERVO_2, 500, 2500);
   delay(1000);
 }
 // Loop secuencial de funcion -> delay
@@ -107,7 +107,7 @@ void loop() {
   delay(TICK_GREEN);
   blue_led();
   delay(TICK_BLUE);
-  servo1_control()
+  servo1_control();
   delay(TICK_SERVO);
   servo2_control();
   delay(TICK_SERVO);
